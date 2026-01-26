@@ -43,7 +43,7 @@ Azure Functions:
 
 ### 2.4.3 Azure Functions Architecture (Mental Model)
 
-<div align="left" data-with-frame="true"><figure><img src="../../../.gitbook/assets/image.png" alt="" width="563"><figcaption></figcaption></figure></div>
+<div align="left" data-with-frame="true"><figure><img src="../../.gitbook/assets/image (5).png" alt="" width="563"><figcaption></figcaption></figure></div>
 
 {% code expandable="true" %}
 ```javascript
@@ -60,13 +60,13 @@ Bindings (DB / Storage / Service Bus)
 
 You **never see the server**.
 
-<div align="left" data-with-frame="true"><figure><img src="../../../.gitbook/assets/image (1).png" alt="" width="563"><figcaption></figcaption></figure></div>
+<div align="left" data-with-frame="true"><figure><img src="../../.gitbook/assets/image (1) (1).png" alt="" width="563"><figcaption></figcaption></figure></div>
 
 ***
 
 ### 2.4.4 Azure Functions — Core Concepts (Must Know)
 
-<figure><img src="../../../.gitbook/assets/Screenshot 2026-01-26 at 18.57.54.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screenshot 2026-01-26 at 18.57.54.png" alt=""><figcaption></figcaption></figure>
 
 <details>
 
@@ -293,7 +293,7 @@ If you remember this, **Azure Functions will never confuse you again**.
 <p align="center">In Azure Functions, a <strong>trigger</strong> defines how a function starts, <strong>bindings</strong> define how data flows in and out, <strong>functions</strong> execute stateless logic, and the <strong>Function App</strong> acts as the hosting container.</p>
 {% endhint %}
 
-<div align="left"><figure><img src="../../../.gitbook/assets/image (2).png" alt="" width="468"><figcaption></figcaption></figure> <figure><img src="../../../.gitbook/assets/image (3).png" alt="" width="563"><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../../.gitbook/assets/image (2) (1).png" alt="" width="468"><figcaption></figcaption></figure> <figure><img src="../../.gitbook/assets/image (3) (1).png" alt="" width="563"><figcaption></figcaption></figure></div>
 
 ***
 
@@ -321,9 +321,9 @@ If you remember this, **Azure Functions will never confuse you again**.
 
 ### 2.4.6 Pricing & Scaling Model (Understand This Clearly)
 
-<div align="left" data-with-frame="true"><figure><img src="../../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left" data-with-frame="true"><figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure></div>
 
-<figure><img src="../../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -476,7 +476,7 @@ Your function code **must be**:
 
 ***
 
-<div align="left" data-with-frame="true"><figure><img src="../../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left" data-with-frame="true"><figure><img src="../../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure></div>
 
 ### What Is Cold Start ?
 
@@ -494,7 +494,7 @@ This causes:
 * First request delay
 * Subsequent requests are fast
 
-<div data-with-frame="true"><figure><img src="../../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure></div>
+<div data-with-frame="true"><figure><img src="../../.gitbook/assets/image (8).png" alt=""><figcaption></figcaption></figure></div>
 
 ### <mark style="color:$tint;">**Real-Time Cold Start Example**</mark>
 
@@ -590,7 +590,7 @@ Cold start happens **before your code runs**.
 
 ***
 
-<figure><img src="../../../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 
 ### Golden Architect Insight
 

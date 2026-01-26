@@ -7,5 +7,5 @@
     * [Azure Virtual Machines (IaaS)](azure-architecture-with-.net/part-ii-compute-architecture/azure-virtual-machines-iaas/README.md)
       * [Azure Bastion](azure-architecture-with-.net/part-ii-compute-architecture/azure-virtual-machines-iaas/azure-bastion.md)
     * [Azure App Service (Web Apps & APIs)](azure-architecture-with-.net/part-ii-compute-architecture/azure-app-service-web-apps-and-apis.md)
-    * [Azure Functions](azure-architecture-with-.net/part-ii-compute-architecture/azure-functions/README.md)
+    * [Azure Functions](azure-architecture-with-.net/part-ii-compute-architecture/azure-functions.md)
       * [Azure Functions (.NET 8) + HTTP + Azure Table Storage](azure-architecture-with-.net/part-ii-compute-architecture/azure-functions/azure-functions-.net-8-+-http-+-azure-table-storage.md)
