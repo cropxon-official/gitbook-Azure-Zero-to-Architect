@@ -1527,7 +1527,328 @@ This is **enterprise-grade API governance**.
 
 <summary><mark style="color:$tint;"><strong>STEP 14 —</strong></mark><strong> GitHub Actions Pipeline (Azurite + Azure Functions + Unit + Integration + Contract Tests)</strong></summary>
 
+* [ ] **GitHub Actions CI pipeline** (Azurite + Functions + all tests)
+* [ ] **API deprecation headers** (clean consumer signaling)
+* [ ] **Rate limiting & authentication** (real Azure-native options)
 
+***
+
+## 1️⃣ GitHub Actions Pipeline
+
+### Azurite + Azure Functions + Unit + Integration + Contract Tests
+
+> Goal: **Every PR proves the API still works, still matches contracts, and still persists data correctly — without Azure cloud access.**
+
+***
+
+### 1.1 Pipeline Architecture (Mental Model)
+
+<div align="left" data-with-frame="true"><figure><img src="../../../.gitbook/assets/image (72).png" alt="" width="563"><figcaption></figcaption></figure></div>
+
+***
+
+### 1.2 GitHub Actions Workflow (Complete)
+
+Create file:
+
+```
+.github/workflows/ci.yml
+```
+
+#### ✅ Full CI Pipeline YAML
+
+```yaml
+name: Azure Functions CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    services:
+      azurite:
+        image: mcr.microsoft.com/azure-storage/azurite
+        ports:
+          - 10000:10000
+          - 10001:10001
+          - 10002:10002
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore
+
+    - name: Run Unit & Integration Tests
+      run: dotnet test --no-build
+
+    - name: Start Azure Functions Host
+      run: |
+        npm install -g azure-functions-core-tools@4 --unsafe-perm true
+        func start --verbose &
+        sleep 15
+
+    - name: Run Contract & Consumer Tests
+      run: dotnet test --filter Category=Contract
+```
+
+***
+
+### Architect Notes (Why This Is Correct)
+
+* ✅ Azurite gives **real storage behavior**
+* ✅ No Azure credentials
+* ✅ Deterministic & fast
+* ✅ Blocks breaking API changes automatically
+
+> **Interview-ready line:**\
+> “Our CI pipeline runs unit, integration, and OpenAPI contract tests using Azurite and a local Functions host, blocking breaking changes before merge.”
+
+***
+
+## 2️⃣ API Deprecation Headers
+
+### Communicating Change Without Breaking Consumers
+
+> **Deprecation is a communication problem, not just a code change.**
+
+***
+
+### 2.1 Why Deprecation Headers Matter
+
+Without headers:
+
+* Consumers don’t know they must migrate
+* Breaking changes arrive silently
+* Support tickets explode
+
+With headers:
+
+* Clear timeline
+* Graceful migration
+* Industry-standard behavior
+
+***
+
+### 2.2 Standard Deprecation Headers (RFC-Friendly)
+
+Use these headers:
+
+| Header        | Purpose                      |
+| ------------- | ---------------------------- |
+| `Deprecation` | Marks endpoint as deprecated |
+| `Sunset`      | Date the API will be removed |
+| `Link`        | Migration docs               |
+
+***
+
+### 2.3 Implement Deprecation in Azure Functions
+
+#### Example: Deprecating `/api/v1/products`
+
+```csharp
+[Function("GetProductsV1")]
+public async Task<HttpResponseData> GetProductsV1(
+    [HttpTrigger(AuthorizationLevel.Function, "get", Route = "v1/products")]
+    HttpRequestData req)
+{
+    var response = req.CreateResponse(HttpStatusCode.OK);
+
+    response.Headers.Add("Deprecation", "true");
+    response.Headers.Add("Sunset", "Wed, 31 Dec 2025 23:59:59 GMT");
+    response.Headers.Add(
+        "Link",
+        "</api/v2/products>; rel=\"successor-version\""
+    );
+
+    await response.WriteAsJsonAsync(/* old payload */);
+    return response;
+}
+```
+
+***
+
+### 2.4 Consumer Experience (Real Life)
+
+Frontend dev sees:
+
+```
+Deprecation: true
+Sunset: Wed, 31 Dec 2025
+Link: </api/v2/products>
+```
+
+➡ Knows exactly **what to migrate to and by when**
+
+> **Architect rule:**\
+> Never deprecate silently.
+
+***
+
+## 3️⃣ Rate Limiting & Authentication
+
+### Protecting Serverless APIs Properly
+
+> **Azure Functions alone do not enforce rate limits or auth at scale.**\
+> **You must add the right layer.**
+
+***
+
+### 3.1 Authentication Options (Choose Correctly)
+
+#### Option A — Function Keys (Basic)
+
+```http
+x-functions-key: <key>
+```
+
+* ✔ Easy
+* ❌ Not enterprise-grade
+* ❌ No user identity
+
+**Use only for internal tools.**
+
+***
+
+#### Option B — Azure AD (Recommended)
+
+Use **Azure AD / Entra ID** authentication.
+
+**Best for:**
+
+* Web apps
+* Mobile apps
+* Internal APIs
+
+Azure handles:
+
+* JWT validation
+* Token expiration
+* User identity
+
+> **This is the architect-approved default.**
+
+***
+
+#### Option C — API Management (Best Overall)
+
+Place **Azure API Management (APIM)** in front:
+
+```
+Client → APIM → Azure Functions
+```
+
+APIM provides:
+
+* OAuth / JWT validation
+* Rate limiting
+* Quotas
+* IP filtering
+* API keys
+* Analytics
+
+***
+
+### 3.2 Rate Limiting Strategies (Realistic)
+
+#### ❌ What NOT to Do
+
+* Manual counters in code
+* In-memory throttling
+* Custom middleware hacks
+
+These break with scaling.
+
+***
+
+#### ✅ Correct Options
+
+**Option 1 — Azure API Management (Best)**
+
+Example APIM policy:
+
+```xml
+<rate-limit-by-key
+  calls="100"
+  renewal-period="60"
+  counter-key="@(context.Request.IpAddress)" />
+```
+
+✔ Scales automatically\
+✔ No code changes\
+✔ Per user / IP / key
+
+***
+
+**Option 2 — Front Door + WAF (Edge-Level)**
+
+* Good for:
+  * DDoS protection
+  * IP-based limits
+* Not ideal for per-user logic
+
+***
+
+### 3.3 Minimal Auth in Azure Functions (Code Example)
+
+#### Azure AD Token Validation (Simplified)
+
+```csharp
+[Function("SecureEndpoint")]
+public async Task<HttpResponseData> SecureEndpoint(
+    [HttpTrigger(AuthorizationLevel.Anonymous, "get")]
+    HttpRequestData req)
+{
+    if (!req.Headers.TryGetValues("Authorization", out var authHeader))
+    {
+        return req.CreateResponse(HttpStatusCode.Unauthorized);
+    }
+
+    // Token validated by App Service Auth (Easy Auth)
+    var response = req.CreateResponse(HttpStatusCode.OK);
+    await response.WriteStringAsync("Authorized");
+    return response;
+}
+```
+
+> **In production:**\
+> Let **Azure App Service Authentication** validate tokens before your function runs.
+
+***
+
+### 3.4 Recommended Security Stack (Final)
+
+```
+Client
+  ↓
+Azure API Management
+  ↓
+Azure AD Authentication
+  ↓
+Azure Functions
+```
+
+This gives:
+
+* Auth
+* Rate limiting
+* Monitoring
+* Versioning
+* Deprecation control
 
 </details>
 
