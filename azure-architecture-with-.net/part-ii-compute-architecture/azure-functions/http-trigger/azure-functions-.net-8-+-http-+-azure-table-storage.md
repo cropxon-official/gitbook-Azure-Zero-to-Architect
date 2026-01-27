@@ -6,7 +6,7 @@ icon: function
 
 ### **Architecture Overview**
 
-<div align="left" data-with-frame="true"><figure><img src="../../../.gitbook/assets/image (68).png" alt=""><figcaption></figcaption></figure></div>
+<div align="left" data-with-frame="true"><figure><img src="../../../../.gitbook/assets/image (68).png" alt=""><figcaption></figcaption></figure></div>
 
 ***
 
@@ -57,11 +57,11 @@ Install once:
 
 #### VS Code Extensions (IMPORTANT)
 
-<div align="left" data-with-frame="true"><figure><img src="../../../.gitbook/assets/image (69).png" alt="" width="563"><figcaption></figcaption></figure></div>
+<div align="left" data-with-frame="true"><figure><img src="../../../../.gitbook/assets/image (69).png" alt="" width="563"><figcaption></figcaption></figure></div>
 
-<div align="left" data-with-frame="true"><figure><img src="../../../.gitbook/assets/image (70).png" alt="" width="461"><figcaption></figcaption></figure></div>
+<div align="left" data-with-frame="true"><figure><img src="../../../../.gitbook/assets/image (70).png" alt="" width="461"><figcaption></figcaption></figure></div>
 
-<div align="left" data-with-frame="true"><figure><img src="../../../.gitbook/assets/image (71).png" alt="" width="512"><figcaption></figcaption></figure></div>
+<div align="left" data-with-frame="true"><figure><img src="../../../../.gitbook/assets/image (71).png" alt="" width="512"><figcaption></figcaption></figure></div>
 
 ***
 
@@ -216,7 +216,7 @@ http://localhost:7071/api/products
 
 <summary><mark style="color:$tint;"><strong>STEP 7 — OpenAPI (Swagger) Support</strong></mark></summary>
 
-<div align="left"><figure><img src="../../../.gitbook/assets/image.png" alt="" width="375"><figcaption></figcaption></figure> <figure><img src="../../../.gitbook/assets/image (1).png" alt="" width="375"><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../../../../.gitbook/assets/image.png" alt="" width="375"><figcaption></figcaption></figure> <figure><img src="../../../../.gitbook/assets/image (1).png" alt="" width="375"><figcaption></figcaption></figure></div>
 
 
 
@@ -257,7 +257,7 @@ Azure automatically:
 
 <summary><mark style="color:$tint;"><strong>STEP 9 — Monitoring &#x26; Alerting (Mandatory)</strong></mark></summary>
 
-<div align="left"><figure><img src="../../../.gitbook/assets/image (2).png" alt="" width="375"><figcaption></figcaption></figure> <figure><img src="../../../.gitbook/assets/image (3).png" alt="" width="375"><figcaption></figcaption></figure></div>
+<div align="left"><figure><img src="../../../../.gitbook/assets/image (2).png" alt="" width="375"><figcaption></figcaption></figure> <figure><img src="../../../../.gitbook/assets/image (3).png" alt="" width="375"><figcaption></figcaption></figure></div>
 
 #### Enable Application Insights
 
@@ -1203,7 +1203,7 @@ In CI:
 
 _**Consumer Contracts ·Typed Clients · Versioning**_
 
-<div align="left" data-with-frame="true"><figure><img src="../../../.gitbook/assets/image (4).png" alt="" width="375"><figcaption></figcaption></figure></div>
+<div align="left" data-with-frame="true"><figure><img src="../../../../.gitbook/assets/image (4).png" alt="" width="375"><figcaption></figcaption></figure></div>
 
 ### PART 1 — Consumer-Driven Contract Tests (CDCT)
 
@@ -1543,7 +1543,7 @@ This is **enterprise-grade API governance**.
 
 ### 1.1 Pipeline Architecture (Mental Model)
 
-<div align="left" data-with-frame="true"><figure><img src="../../../.gitbook/assets/image (72).png" alt="" width="563"><figcaption></figcaption></figure></div>
+<div align="left" data-with-frame="true"><figure><img src="../../../../.gitbook/assets/image (72).png" alt="" width="563"><figcaption></figcaption></figure></div>
 
 ***
 
