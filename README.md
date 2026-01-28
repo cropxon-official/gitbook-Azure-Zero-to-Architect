@@ -4,6 +4,10 @@ icon: grid-4
 
 # Azure Architecture with .NET
 
+### AZURE CERTIFICATION PATHS
+
+<div align="left" data-with-frame="true"><figure><img src=".gitbook/assets/image.png" alt="" width="563"><figcaption></figcaption></figure></div>
+
 ### Azure Architecture with .NET
 
 {% stepper %}
